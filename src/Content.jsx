@@ -1,18 +1,37 @@
+import { useRef, useState } from "react";
+
 const Content = () => {
+    const inputRefA = useRef();
+    const inputRefB = useRef();
+    const [state, setState] = useState();
+    const [operationState, setOperationState] = useState();
+
+    const handleCalculate = () => {
+        const valueA = +inputRefA.current.value;
+        const valueB = +inputRefB.current.value;
+        // Todo: add branch condition
+        setState(valueA + valueB);
+    }
+
+    const handleOperationButtonClick = (operation) => {
+        setOperationState(operation);
+    }
+
     return (
         <div>
             <div>
-                <button>Add</button>
-                <button>Subtract</button>
-                <button>Multiply</button>
-                <button>Division</button>
+                <button onClick={() => handleOperationButtonClick("+")}>Add</button>
+                <button onClick={() => handleOperationButtonClick("-")}>Subtract</button>
+                <button onClick={() => handleOperationButtonClick("*")}>Multiply</button>
+                <button onClick={() => handleOperationButtonClick("/")}>Division</button>
             </div>
-            <input />
-            +
-            <input />
+            <input ref={inputRefA} />
+            {operationState}
+            <input ref={inputRefB} />
             =
+            {state}
             <div>
-                <button>Calculate</button>
+                <button onClick={handleCalculate}>Calculate</button>
             </div>
         </div>
     );
